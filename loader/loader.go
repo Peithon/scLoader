@@ -9,6 +9,7 @@ import (
 	"encoding/hex"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"syscall"
 	"unsafe"
@@ -38,6 +39,7 @@ func checkErr(err error) {
 			//报出具体错误
 			println(err.Error())
 			os.Exit(1)
+			log.Fatal(err)
 		}
 	}
 }
