@@ -1,7 +1,7 @@
 # scLoader: shellcode 加载器
 
 ## 效果
-目前测试动态可以过火绒和360，静态VT检查效果一般
+目前测试了火绒和360，静态动态都能免杀，静态VT检测效果一般
 
 ## 特点
 - 基于Syscall进行免杀shellcode加载
@@ -33,7 +33,9 @@ ac3c 617c 022c 2041 c1c9 0d41 01c1 e2ed
 ```
 ***注意：-e参数必须使用base64编码结尾***
 
-2、将加密的shellcode复制到loader.go中的shellcode参数
+![](https://github.com/Peithon/scLoader/blob/master/imgs/shellcode-encode.png)
+
+2、将加密之后的shellcode填充到loader.go中的shellcode参数
 
 3、按照加密顺序调整loader.go中的解密顺序，如这里base64,3des,aes,rc4,des
 
