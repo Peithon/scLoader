@@ -5,7 +5,8 @@
 
 ## 特点
 - 基于Syscall进行免杀shellcode加载
-- 加密方式可以自己选择
+- 已经实现的加密/编码：des,rc4,aes,3des,base64
+- 在已实现的加密方式中，加密顺序可以随意指定
 
 ## 支持shellcode格式
 目前支持CS中C语言格式和Raw格式的shellcode
