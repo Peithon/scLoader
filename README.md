@@ -26,8 +26,13 @@ ac3c 617c 022c 2041 c1c9 0d41 01c1 e2ed
 ```
 
 ## 使用
+1、编译sparrow.go(不想编译直接`go run`也行)
 
-1、使用sparrow.exe加密shellcode
+找到项目中builder/sparrow.go文件，然后如图编译即可
+
+![](https://github.com/Peithon/scLoader/blob/master/imgs/build-sparrow.png)
+
+2、使用sparrow.exe加密shellcode
 
 在CS中生成需要格式的shellcode，将CS生成的原始.bin文件或.c文件放在sparrow.exe同一目录，使用命令
 
@@ -41,17 +46,17 @@ ac3c 617c 022c 2041 c1c9 0d41 01c1 e2ed
 
 ![](https://github.com/Peithon/scLoader/blob/master/imgs/shellcode-encode.png)
 
-2、将加密之后的shellcode填充到loader.go中的shellcode变量
+3、将加密之后的shellcode填充到loader.go中的shellcode变量
 
-3、按照加密顺序填充到loader.go中的encodestr变量中
+4、按照加密顺序填充到loader.go中的encodestr变量中
 
 ![](https://github.com/Peithon/scLoader/blob/master/imgs/add-info.png)
 
-4、编译loader.go文件
+5、编译loader.go文件
 ```
 go build -trimpath -ldflags="-w -s -H=windowsgui" loader.go
 ```
 
-5、上传到目标机器，使用`loader.exe -fuck`命令加载shellcode
+6、上传到目标机器，使用`loader.exe -fuck`命令加载shellcode
 
 
