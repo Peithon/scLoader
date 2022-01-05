@@ -29,7 +29,7 @@ func init() {
 	flag.BoolVar(&v, "v", false, "show `version` and exit")
 
 	// 注意 `shellcode`。默认是 -s string，有了 `shellcode` 之后，变为 -s shellcode
-	flag.StringVar(&e, "e", "Base64", "specify `encryption` mode;You can specify more than one at a time, separated by commas, and the last one must use base64 encoding")
+	flag.StringVar(&e, "e", "des,rc4,aes,3des,base64", "specify `encryption` mode;You can specify more than one at a time, separated by commas, and the last one must use base64 encoding")
 	//flag.StringVar(&c, "c", "", "`shellcode`")
 	flag.StringVar(&f, "f", "", "shellcode file,ex:`payload.bin`")
 
