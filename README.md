@@ -46,15 +46,15 @@ ac3c 617c 022c 2041 c1c9 0d41 01c1 e2ed
 
 ![](https://github.com/Peithon/scLoader/blob/master/imgs/shellcode-encode.png)
 
-3、将加密之后的shellcode填充到loader.go中的shellcode变量
+3、将加密之后的shellcode填充到`/loader/loader.go`中的shellcode变量
 
-4、按照加密顺序填充到loader.go中的encodestr变量中
+4、将`-e参数的值`(加密顺序)填充到`/loader/loader.go`中的encodestr变量中
 
 ![](https://github.com/Peithon/scLoader/blob/master/imgs/add-info.png)
 
-5、编译loader.go文件
+5、编译`/loader/loader.go`文件
 ```
-go build -trimpath -ldflags="-w -s -H=windowsgui" loader.go
+go build -trimpath -ldflags="-w -s -H=windowsgui" ./loader/loader.go
 ```
 
 6、上传到目标机器，使用`loader.exe -fuck`命令加载shellcode
