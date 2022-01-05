@@ -5,14 +5,16 @@
 
 ## 特点
 - 基于Syscall进行免杀shellcode加载
-- 加密方式可以自己选择
+- 已经实现的加密/编码：des,rc4,aes,3des,base64
+- 在已实现的加密方式中，加密顺序可以随意指定
 
 ## 支持shellcode格式
 目前支持CS中C语言格式和Raw格式的shellcode
 
 **C语言字符串格式shellcode**
 ```
-\xfc\x48\x83\xe4\xf0\xe8\xc8\x00\x00\x00\x41\x51\x41\x50\x52\x51\x56\x48\x31\xd2\x65\x48\x8b\x52\x60\x48
+/* length: 891 bytes */
+unsigned char buf[] = "\xfc\x48\x83\xe4\xf0\xe8\xc8\x00\x00\x00\x41\x51\x41\x50\x52......";
 ```
 
 **纯十六进制格式的shellcodes**
@@ -26,18 +28,24 @@ ac3c 617c 022c 2041 c1c9 0d41 01c1 e2ed
 ## 使用
 
 1、使用sparrow.exe加密shellcode
-将CS生成的.bin文件或.c文件放在sparrow.exe同一目录，使用命令
+
+在CS中生成需要格式的shellcode，将CS生成的原始.bin文件或.c文件放在sparrow.exe同一目录，使用命令
 
 ```
-.\sparrow.exe -e des,rc4,aes,3des,base64 -f .\payload.bin 
+#.bin文件
+.\sparrow.exe -e des,rc4,aes,3des,base64 -f .\payload.bin
+#.c文件
+.\sparrow.exe -e des,rc4,aes,3des,base64 -f .\payload.c
 ```
 ***注意：-e参数必须使用base64编码结尾***
 
 ![](https://github.com/Peithon/scLoader/blob/master/imgs/shellcode-encode.png)
 
-2、将加密之后的shellcode填充到loader.go中的shellcode参数
+2、将加密之后的shellcode填充到loader.go中的shellcode变量
 
-3、按照加密顺序调整loader.go中的解密顺序，如这里base64,3des,aes,rc4,des
+3、按照加密顺序填充到loader.go中的encodestr变量中
+
+![](https://github.com/Peithon/scLoader/blob/master/imgs/add-info.png)
 
 4、编译loader.go文件
 ```
