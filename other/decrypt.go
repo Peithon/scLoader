@@ -1,4 +1,4 @@
-package other
+package other_test
 
 import (
 	"crypto/aes"
