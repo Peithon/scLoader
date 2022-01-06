@@ -57,6 +57,6 @@ ac3c 617c 022c 2041 c1c9 0d41 01c1 e2ed
 go build -trimpath -ldflags="-w -s -H=windowsgui" ./loader/loader.go
 ```
 
-6、上传到目标机器，使用`loader.exe -fuck`命令加载shellcode
+6、上传到目标机器，使用`loader.exe -token`命令加载shellcode
 
 
